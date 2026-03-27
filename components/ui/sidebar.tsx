@@ -46,6 +46,7 @@ export const SidebarProvider = ({
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
+  // Make sure we aren't triggering accidental re-renders or conflicting hover states
   return (
     <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
       {children}
@@ -85,20 +86,15 @@ export const DesktopSidebar = ({
   children,
   ...props
 }: React.ComponentProps<typeof motion.div>) => {
-  const { open, setOpen, animate } = useSidebar();
+  const { open } = useSidebar();
 
   return (
     <>
       <motion.div
         className={cn(
-          "h-auto px-4 py-4 hidden  md:flex md:flex-col bg-white shadow-md border-x-2 dark:bg-neutral-800 w-[300px] flex-shrink-0",
+          "h-auto px-4 py-4 hidden lg:flex lg:flex-col bg-gray-100 dark:bg-neutral-800 w-[300px] flex-shrink-0 border-r border-neutral-200 dark:border-neutral-700",
           className
         )}
-        animate={{
-          width: animate ? (open ? "300px" : "60px") : "300px",
-        }}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
         {...props}
       >
         {children}
@@ -118,7 +114,7 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-white shadow-md  dark:bg-neutral-800 w-full"
+          "h-10 px-4 py-4 flex flex-row lg:hidden items-center justify-between bg-gray-100 shadow-sm dark:bg-neutral-800 w-full"
         )}
         {...props}
       >
@@ -129,11 +125,17 @@ export const MobileSidebar = ({
           </h1>
         </div>
 
-        <div className="flex justify-end z-20 w-full">
-          <IconMenu2
-            className="text-neutral-800 dark:text-neutral-200"
-            onClick={() => setOpen(!open)}
-          />
+        <div className="flex justify-end z-20 w-fit">
+          <button
+            className="text-neutral-800 dark:text-neutral-200 cursor-pointer p-2 rounded-md hover:bg-gray-200 dark:hover:bg-neutral-700"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setOpen(!open);
+            }}
+          >
+            <IconMenu2 />
+          </button>
         </div>
         <AnimatePresence>
           {open && (
@@ -146,17 +148,31 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
+                "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between overflow-y-auto",
                 className
               )}
             >
-              <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
-                onClick={() => setOpen(!open)}
+              <button
+                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200 cursor-pointer p-2 rounded-md hover:bg-gray-200 dark:hover:bg-neutral-700"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setOpen(false);
+                }}
               >
                 <IconX />
+              </button>
+              <div 
+                className="mt-10 h-full w-full"
+                onClick={(e) => {
+                  // Only close if they click on the links, don't close on every single random touch.
+                  if (e.target instanceof HTMLElement && e.target.closest('a')) {
+                    setOpen(false);
+                  }
+                }}
+              >
+                {children}
               </div>
-              {children}
             </motion.div>
           )}
         </AnimatePresence>
@@ -172,26 +188,23 @@ export const SidebarLink = ({
 }: {
   link: Links;
   className?: string;
-  props?: LinkProps;
+  props?: Partial<LinkProps>;
 }) => {
-  const { open, animate } = useSidebar();
   return (
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-4 bg-white rounded-full shadow-sm hover:bg-slate-100 transition duration-300",
+        "flex items-center justify-start gap-2 group/sidebar py-4 px-3 bg-white dark:bg-neutral-800/80 rounded-lg shadow-sm hover:bg-slate-100 dark:hover:bg-neutral-800 transition duration-300",
         className
       )}
-      {...props}
+      {...(props as any)}
     >
-      {link.icon}
+      <div className="flex-shrink-0 flex items-center justify-center">
+        {link.icon}
+      </div>
 
       <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="text-neutral-700 dark:text-white text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0 overflow-hidden"
       >
         {link.label}
       </motion.span>

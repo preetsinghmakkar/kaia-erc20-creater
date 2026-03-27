@@ -53,11 +53,11 @@ const Landing = () => {
         </div>
       </section>
 
-      <section id="howItWorks" className="scroll-mt-24 flexCenter flex-col bg-white dark:bg-gray-900 py-20">
+      <section id="howItWorks" className="scroll-mt-24 flexCenter flex-col bg-white dark:bg-background py-20">
         <div className="max-container padding-container">
           <div className="grid gap-10 md:grid-cols-2">
             <div className="flex flex-col justify-center items-center md:items-center lg:items-center">
-              <p className="regular-16 text-gray-30 text-center lg:text-center">
+              <p className="regular-16 text-gray-30 dark:text-gray-300 text-center lg:text-center">
                 Watch this video to see how TokenMaker revolutionizes the
                 process of creating custom ERC20 tokens. Learn how our platform
                 allows you to effortlessly design, mint, and manage your tokens
@@ -95,20 +95,20 @@ const Landing = () => {
 
       <section
         id="Contact"
-        className="scroll-mt-24 flex flex-col items-center bg-gray-100 dark:bg-gray-950 py-20"
+  className="scroll-mt-24 flex flex-col items-center bg-gray-100 dark:bg-neutral-900 py-20"
       >
         <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold mb-10 text-center dark:text-gray-100">
             About the Creator
           </h2>
           <div className="flex flex-col items-center gap-10 md:flex-row md:gap-20">
-            <div className="relative w-64 h-64 rounded-full overflow-hidden">
+            <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-2xl shadow-black/30">
               <Image
                 src="/profile-pic.jpeg"
                 alt="Preet Singh"
                 layout="fill"
                 objectFit="cover"
-                className="rounded-full border-4 border-gray-300"
+                className="rounded-full border-4 border-gray-300 dark:border-white/10"
               />
             </div>
             <div className="flex flex-col items-center md:items-start">
@@ -126,7 +126,7 @@ const Landing = () => {
               </p>
               <div className="flex gap-4">
                 <Link href={"https://github.com/preetsinghmakkar/TokenMaker"}>
-                  <Button className="gap-1">
+                  <Button variant="secondary" className="gap-1">
                     <IconBrandGithub className="w-6 h-6" />
                     GitHub
                   </Button>
@@ -134,13 +134,13 @@ const Landing = () => {
                 <Link
                   href={"https://www.linkedin.com/in/preet-singh-a65967302/"}
                 >
-                  <Button className="gap-1">
+                  <Button variant="secondary" className="gap-1">
                     <Linkedin className="w-6 h-6" />
                     LinkedIn
                   </Button>
                 </Link>
                 <Link href="https://x.com/RaOne_0xDev">
-                  <Button className="gap-1">
+                  <Button variant="secondary" className="gap-1">
                     <IconX className="w-6 h-6" />
                     Twitter
                   </Button>
@@ -151,7 +151,7 @@ const Landing = () => {
         </div>
       </section>
 
-      <section id="FAQs" className="scroll-mt-24 flexCenter flex-col bg-white dark:bg-gray-900 py-20">
+  <section id="FAQs" className="scroll-mt-24 flexCenter flex-col bg-white dark:bg-black py-20">
         <div className="max-container padding-container">
           <h2 className="bold-40 mb-10 text-center">
             Frequently Asked Questions

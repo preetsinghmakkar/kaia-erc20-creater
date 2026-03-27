@@ -33,9 +33,9 @@ const Navbar = () => {
       <nav
         className="
           flex w-full max-w-[1440px] items-center justify-between
-          rounded-2xl border border-white/20 dark:border-white/10
-          bg-white/10 dark:bg-gray-900/50 px-6 py-4 sm:px-10 sm:py-5
-          shadow-lg shadow-black/5 dark:shadow-black/20
+          rounded-2xl border border-black/5 dark:border-white/10
+          bg-white/80 dark:bg-black/50 px-6 py-4 sm:px-10 sm:py-5
+          shadow-lg shadow-black/5 dark:shadow-[0_10px_40px_rgba(0,0,0,0.55)]
           backdrop-blur-xl
           transition-all duration-300
         "
@@ -111,8 +111,8 @@ const Navbar = () => {
             <SheetContent
               side="left"
               className="
-                border-r border-white/20 dark:border-white/10
-                bg-white/80 dark:bg-gray-900/90 backdrop-blur-2xl
+                border-r border-white/20 dark:border-neutral-800
+                bg-white/80 dark:bg-black/95 backdrop-blur-2xl
                 p-0
               "
             >

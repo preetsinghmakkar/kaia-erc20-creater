@@ -90,46 +90,42 @@ export default function RootLayout({
       ),
     },
   ];
+
   const [open, setOpen] = useState(false);
-
   return (
-    <html lang="en">
-      <body>
-        <WagmiProviderContext>
-          <Header />
-
-          <div
-            className={cn(
-              "rounded-md flex flex-col md:flex-row bg-white shadow-sm dark:bg-neutral-800 w-full flex-1 max-w-9xl mx-auto border border-white dark:border-neutral-700 overflow-hidden",
-              "h-auto"
-            )}
-          >
-            <Sidebar open={open} setOpen={setOpen} animate={false}>
-              <SidebarBody className="justify-between gap-10">
-                <div className="flex flex-col flex-1 overflow-y-auto">
-                  <div className="mt-8 flex flex-col gap-2 ">
-                    {links.map((link, idx) => (
-                      <SidebarLink key={idx} link={link} />
-                    ))}
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-2 bg-white rounded-full shadow-lg hover:bg-slate-100 transition duration-300">
-                  <UserButton
-                    showName
-                    appearance={{
-                      elements: {
-                        rootBox: "flex items-center space-x-2",
-                        userName: "text-white font-semibold",
-                      },
-                    }}
-                  />
-                </div>
-              </SidebarBody>
-            </Sidebar>
+    <WagmiProviderContext>
+      <Header />
+      <div
+        className={cn(
+          "flex flex-col lg:flex-row bg-gray-100 dark:bg-neutral-900 w-full flex-1 min-h-screen"
+        )}
+      >
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
+            <div className="flex flex-col flex-1">
+              <div className="flex items-center gap-2 px-3 py-4">
+                <IconBrandTabler className="w-8 h-8 text-neutral-700 dark:text-white" />
+                <span className="text-neutral-700 dark:text-white font-semibold hidden lg:inline">TokenMaker</span>
+              </div>
+              <div className="mt-8 flex flex-col gap-2">
+                {links.map((link, idx) => (
+                  <SidebarLink key={idx} link={link} />
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 px-3 py-4 bg-white dark:bg-neutral-800/80 rounded-lg">
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </div>
+          </SidebarBody>
+        </Sidebar>
+        <div className="flex flex-1 w-full flex-col min-h-screen overflow-y-auto bg-gray-100 dark:bg-neutral-900 pb-20">
+          <div className="p-4 sm:p-6 lg:p-8 w-full flex-1">
             {children}
           </div>
-        </WagmiProviderContext>
-      </body>
-    </html>
+        </div>
+      </div>
+    </WagmiProviderContext>
   );
 }

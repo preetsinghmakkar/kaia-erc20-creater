@@ -132,43 +132,50 @@ const InteractPage = () => {
       {transferOn ? (
         <TransferToken data={data} />
       ) : (
-        <div className="flex flex-col m-4 items-center justify-start min-h-screen p-4 bg-white w-full">
+        <div className="w-full flex flex-col items-center justify-start space-y-4 sm:space-y-8">
           {ErrorInInteraction && (
-            <p className="text-red-500 m-4 ">
-              {" "}
-              <CircleX /> {ErrorInInteraction}
+            <p className="text-red-500 m-4 text-center">
+              <CircleX className="inline mr-2" /> {ErrorInInteraction}
             </p>
           )}
 
-          <Card className="w-full max-w-lg">
+          <Card className="w-full max-w-lg bg-white dark:bg-neutral-800 shadow-2xl rounded-lg">
             <CardHeader>
-              <CardTitle>Fetch Token Details!</CardTitle>
+              <CardTitle className="text-center text-2xl font-bold text-gray-900 dark:text-white">
+                Fetch Token Details!
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
+                className="space-y-6"
               >
-                <label htmlFor="dropdown" className="block text-sm font-medium">
-                  Enter Token Address
-                </label>
-                <Input
-                  {...form.register("address")}
-                  placeholder="0x..."
-                  className="w-full px-4 py-2 border rounded"
-                />
-
-                <div className="mb-4">
+                <div>
                   <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium"
+                    htmlFor="address"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    Enter Token Address
+                  </label>
+                  <Input
+                    id="address"
+                    {...form.register("address")}
+                    placeholder="0x..."
+                    className="mt-1 w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-md bg-white dark:bg-neutral-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-400 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="tokenType"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                   >
                     Select a Token Type
                   </label>
                   <select
-                    id="dropdown"
+                    id="tokenType"
                     {...form.register("tokenType")}
-                    className="mt-1 block w-full bg-white border-2 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                   >
                     <option disabled value="">
                       Select an option
@@ -183,7 +190,7 @@ const InteractPage = () => {
 
                 <Button
                   type="submit"
-                  className="w-full py-2 bg-blue-600 text-white rounded flex items-center justify-center"
+                  className="w-full py-2 bg-blue-600 text-white rounded-md flex items-center justify-center hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition duration-300"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -201,14 +208,16 @@ const InteractPage = () => {
               <DialogTrigger asChild>
                 <Button className="hidden">Trigger</Button>
               </DialogTrigger>
-              <DialogContent>
-                <DialogTitle>Token Details</DialogTitle>
+              <DialogContent className="bg-white dark:bg-neutral-800">
+                <DialogTitle className="text-gray-900 dark:text-white">
+                  Token Details
+                </DialogTitle>
                 <DialogDescription>
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col items-center space-y-4 mt-4 text-lg"
+                    className="flex flex-col items-center space-y-4 mt-4 text-lg text-gray-900 dark:text-white"
                   >
                     <motion.h1
                       initial={{ x: -100, opacity: 0 }}
@@ -233,7 +242,7 @@ const InteractPage = () => {
                     </motion.h1>
                     <Button
                       onClick={() => setTransferOn(true)}
-                      className="py-2 px-4 bg-green-600 text-white rounded"
+                      className="py-2 px-4 bg-green-600 text-white rounded hover:bg-green-700"
                     >
                       Transfer Token
                     </Button>

@@ -175,21 +175,20 @@ const Create: React.FC<CreateProps> = ({ type }) => {
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-start h-screen space-y-8 p-4 sm:p-6 lg:p-8 bg-white">
+    <div className="w-full flex flex-col items-center justify-start space-y-4 sm:space-y-8">
       {errorInTokenCreation && (
-        <p className="text-red-500 m-4 ">
-          {" "}
-          <CircleX /> {errorInTokenCreation}
+        <p className="text-red-500 m-4 text-center">
+          <CircleX className="inline mr-2" /> {errorInTokenCreation}
         </p>
       )}
 
-      <div className="flex justify-center h-auto mt-10">
+      <div className="flex justify-center h-auto w-full">
         <TypewriterEffectSmooth words={getWords(type)} />
       </div>
 
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-2xl">
+      <div className="w-full max-w-md bg-white dark:bg-neutral-800 p-6 sm:p-8 rounded-lg shadow-2xl">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
             <CustomTokenInput
               control={form.control}
               name="name"
@@ -225,7 +224,7 @@ const Create: React.FC<CreateProps> = ({ type }) => {
                 disabled={loading}
                 variant="default"
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                className="w-full bg-blue-600 dark:bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-800 transition duration-300"
               >
                 {loading ? (
                   <TailSpin color="#FFF" height={24} width={24} />
@@ -235,12 +234,12 @@ const Create: React.FC<CreateProps> = ({ type }) => {
               </Button>
               <Link
                 href={"./interact"}
-                className="bg-blue-500 py-2 px-4 rounded text-white text-center w-full hover:bg-blue-600 transition duration-300"
+                className="bg-blue-500 dark:bg-blue-600 py-2 px-4 rounded text-white text-center w-full hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300"
               >
                 Interact with Token
               </Link>
             </div>
-            <p className="mt-4 text-red-500 text-sm">
+            <p className="mt-4 text-red-500 text-xs sm:text-sm text-center">
               ** Remember to save Token Address somewhere after creation
             </p>
           </form>
